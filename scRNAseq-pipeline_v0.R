@@ -1,12 +1,12 @@
+# Load relevant libraries for analysis
+library(Seurat)
+library(dplyr)
+library(googledrive)
+
 
 #Set working directory
 setwd("~/Documents/Shea Lab/Eiji's Spine Bridge Analysis /Illumina Files")
 
-library(Seurat)
-library(dplyr)
-library(googledrive)
- #test test
-# test 2
 
 # get files from google drive 
 #drive_download("")
@@ -15,6 +15,8 @@ library(googledrive)
 # reads output from Cell Ranger (pipelines process BCL files (seq output) into 
 # FASTQ for 10x genomics method and can align reads to reference genome and 
 # generate gene count matrix using STAR)
+
+# This is an example. Idk if our data will come in with 23 unique files since we had that many samples. 
 spleen.pbs.data <- Read10X(data.dir = "Spleen_PBS")
 spleen.np.data <- Read10X(data.dir = "Spleen_NP")
 bridge.pbs.data <- Read10X(data.dir = "Bridge_PBS")
@@ -28,6 +30,8 @@ spleen.pbs <- CreateSeuratObject(spleen.pbs.data, min.cells = 3)
 spleen.pbs@meta.data$sample <- "spleen.pbs" # rename sample name
 spleen.pbs <- NormalizeData(spleen.pbs) # normalize the data with log norm
 spleen.pbs <- ScaleData(spleen.pbs, verbose = F) # linear transformation prior to
+
+
 # dimensional reduction like PCA. Shifts expression so mean exp is 0 across all cells,
 # scales exp, so var across cells is 1 
 # verbose calls progress bar 
